@@ -12,7 +12,7 @@ gh extension install gh-cli-for-education/gh-org-commits
 ```
 ➜  gh-org-commits git:(main) gh org-commits --help
 USAGE
-  /Users/casianorodriguezleon/.local/share/gh/extensions/gh-org-commits/gh-org-commits [-o|--ORG <ORG>] [-l|--lab <gh classroom assignment>] [-d|--day <year-month-day>] [-f|--file <students file>] [-b|--begin <HH:MM:SS>] [-e|--end <HH:MM:SS>]
+  gh org-commits [-o|--ORG <ORG>] [-l|--lab <gh classroom assignment>] [-d|--day <year-month-day>] [-f|--file <students file>] [-b|--begin <HH:MM:SS>] [-e|--end <HH:MM:SS>]
 ```
 
 ## Example
