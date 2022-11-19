@@ -8,6 +8,8 @@ set -e
 DAY="$(date '+%Y-%m-%d')"
 BEGIN=00:00:00
 END=23:59:59
+TIMEZONE=
+# Canary Islands is Z
 
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
@@ -42,10 +44,26 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       shift # past value
       ;; 
+    -z|--timezone)
+      TIMEZONE="$2"
+      shift # past argument
+      shift # past value
+      ;; 
 
     -*|--*)
       echo "USAGE"
-      echo "  $0 [-o|--ORG <ORG>] [-l|--lab <gh classroom assignment>] [-d|--day <year-month-day>] [-f|--file <students file>] [-b|--begin <HH:MM:SS>] [-e|--end <HH:MM:SS>]"
+      echo "  $0 [options]"
+      echo "Available options:"
+      echo "  -o --ORG <GitHub Organization>"
+      echo "  -l --lab <gh classroom assignment>"
+      echo "  -d --day <yyyy-mm-dd>"
+      echo "  -f --file <file with students>"
+      echo "  -b --begin <HH:MM:SS>"
+      echo "  -e --end <HH:MM:SS>"
+      echo "  -z --timezone [timezone]"
+      echo "Example:"
+      echo "  $0 -o \"my-org\" -l \"lab-1\" -d \"2020-09-01\" -f \"students.txt\" -b \"00:00:00\" -e \"23:59:59\" -z \"Z\""
+
       exit 1
       ;;
     *)
@@ -80,8 +98,8 @@ function getTeams() {
 
 function getCommits() {
   local NAME=\"$LAB-$TEAM\"
-  local SINCE="\"${DAY}T${BEGIN}Z\""
-  local UNTIL="\"${DAY}T${END}Z\""
+  local SINCE="\"${DAY}T${BEGIN}${TIMEZONE}\""
+  local UNTIL="\"${DAY}T${END}${TIMEZONE}\""
   local QUERY='
   {
       repository(owner: '"$ORG"', name: '"$NAME"') {
