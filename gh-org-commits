@@ -55,7 +55,7 @@ while [[ $# -gt 0 ]]; do
       echo "  $0 [options]"
       echo "Available options:"
       echo "  -o --ORG <GitHub Organization>"
-      echo "  -l --lab <gh classroom assignment>"
+      echo "  -l --lab <gh classroom assignment name>"
       echo "  -d --day <yyyy-mm-dd>"
       echo "  -f --file <file with students>"
       echo "  -b --begin <HH:MM:SS>"

@@ -44,7 +44,7 @@ the default `lab` is  set to the output of the command `gh pwd-lab`
       set alias cd-lab to:   !gh config set current-lab "$1" 2>/dev/null  
       set alias pwd-lab to:  !gh config get current-lab
 
-### begin
+### begin 
 
 00:00:00
 
@@ -63,6 +63,18 @@ _data/team-names.txt
 
 ## Example
 
+Given this team names file:
+
+        ➜  apuntes git:(main) ✗ cat _data/team-names.txt 
+        "miguel-rodriguez-caputo-alu0100708974"
+        # comments and empty lines are ignored
+        #"luis-fernando-fernandez-alu0101232775"
+        "maria-Suarez-alu0101232775"
+        #"maria-fernanda-fernandez-alu0101232775"
+
+the following command `gh org-commits -f _data/team-names.txt -d '2022-10-27' -l 'aprender-markdown' ` 
+uses the default value for `org`, `begin` and `end` and so produces a JSON by the uncommented students for the whole day:
+
       ✗ gh org-commits -f _data/team-names.txt -d '2022-10-27' -l 'aprender-markdown' | jq '[ .[] | { name: .name, total: .total }]'
         [
           {
@@ -75,10 +87,4 @@ _data/team-names.txt
           }
         ]
 
-        ➜  apuntes git:(main) ✗ cat _data/team-names.txt 
-        "miguel-rodriguez-caputo-alu0100708974"
-        # comments and empty lines are ignored
-        #"luis-fernando-fernandez-alu0101232775"
-        "maria-Suarez-alu0101232775"
-        #"maria-fernanda-fernandez-alu0101232775"
 
