@@ -50,6 +50,10 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       shift # past value
       ;; 
+    -t|--total)
+      TOTAL=1
+      shift # past argument
+      ;;
 
     -*|--*)
       echo "USAGE"
@@ -62,6 +66,7 @@ while [[ $# -gt 0 ]]; do
       echo "  -b --begin <HH:MM:SS>"
       echo "  -e --end <HH:MM:SS>"
       echo "  -z --timezone [timezone]"
+      echo "  -t --total"
       echo "Example:"
       echo "  $0 -o \"my-org\" -l \"lab-1\" -d \"2020-09-01\" -f \"students.txt\" -b \"00:00:00\" -e \"23:59:59\" -z \"Z\""
 
@@ -148,6 +153,10 @@ do
 done
 
 IFS=, ; 
-echo "[${result[*]}]"
+if [[ -z "$TOTAL" ]]; then
+  echo "[${result[*]}]"
+else
+  echo "[${result[*]}]" | jq 'map({name, total: .total})'
+fi
 
      

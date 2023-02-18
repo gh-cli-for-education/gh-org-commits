@@ -23,6 +23,7 @@ Available options:
   -b --begin <HH:MM:SS>
   -e --end <HH:MM:SS>
   -z --timezone [timezone]
+  -t --total
 Example:
   gh org-commits -o "my-org" -l "lab-1" -d "2020-09-01" -f "students.txt" -b "00:00:00" -e "23:59:59" -z "Z"
 ```
@@ -60,6 +61,23 @@ Start day. The reported commits will be from this day to today.
 
 _data/team-names.txt
 
+### total
+
+The output json is simplified as an array in which only the repo lab and the total number of commits is shown:
+
+```json
+[
+  {
+    "name": "aprender-markdown-alejandro-febles-casquero-alu0101013282",
+    "total": 7
+  },
+  {
+    "name": "aprender-markdown-alejandro-sanchez-alu0100086393",
+    "total": 6
+  },
+  ...
+]
+```
 
 ## Example
 
