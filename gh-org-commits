@@ -5,7 +5,8 @@ set -e
 
 # Write a bash function to transforma current date to yyyy-mm--day
 
-DAY="$(date '+%Y-%m-%d')"
+TODAY="$(date '+%Y-%m-%d')"
+DAY="2023-01-01"
 BEGIN=00:00:00
 END=23:59:59
 TIMEZONE=
@@ -99,7 +100,7 @@ function getTeams() {
 function getCommits() {
   local NAME=\"$LAB-$TEAM\"
   local SINCE="\"${DAY}T${BEGIN}${TIMEZONE}\""
-  local UNTIL="\"${DAY}T${END}${TIMEZONE}\""
+  local UNTIL="\"${TODAY}T${END}${TIMEZONE}\""
   local QUERY='
   {
       repository(owner: '"$ORG"', name: '"$NAME"') {

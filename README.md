@@ -54,7 +54,7 @@ the default `lab` is  set to the output of the command `gh pwd-lab`
 
 ### day
 
-Today
+Start day. The reported commits will be from this day to today.
 
 ### file
 
