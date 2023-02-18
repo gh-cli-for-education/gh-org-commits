@@ -63,6 +63,17 @@ _data/team-names.txt
 
 ## Example
 
+You must create a file with the students names, one per line, and use it as input for the command. An easy way to create it is with the extension `org-teams-names`:
+
+```
+✗ gh org-teams-names --org ULL-ESIT-PL-2223 | head -4
+adal-diaz-farinya-alu0101112251
+adrian-fleitas-de_la_rosa-alu0101024363
+adriano-dos_santos-alu0101436784
+adrian_grassin-luis-alu0101349480
+...
+```
+
 Given this team names file:
 
         ➜  apuntes git:(main) ✗ cat _data/team-names.txt 
@@ -72,19 +83,59 @@ Given this team names file:
         "maria-Suarez-alu0101232775"
         #"maria-fernanda-fernandez-alu0101232775"
 
-the following command `gh org-commits -f _data/team-names.txt -d '2022-10-27' -l 'aprender-markdown' ` 
-uses the default value for `org`, `begin` and `end` and so produces a JSON by the uncommented students for the whole day:
+the following command 
 
-      ✗ gh org-commits -f _data/team-names.txt -d '2022-10-27' -l 'aprender-markdown' | jq '[ .[] | { name: .name, total: .total }]'
-        [
-          {
-            "name": "aprender-markdown-miguel-rodriguez-caputo-alu0100708974",
-            "total": 6
-          },
-          {
-            "name": "aprender-markdown-maria-Suarez-alu0101232775",
-            "total": 4
+```
+✗ gh org-teams-names --org ULL-MFP-AET-2223 > /tmp/aet-teams
+```
+
+Creates the file `/tmp/aet-teams` with the team names and the command
+
+```
+✗ gh org-commits -f /tmp/aet-teams \
+             -d '2022-10-27' \
+             -l 'aprender-markdown'  \
+             -o ULL-MFP-AET-2223 > /tmp/commits-for-aprender-markdown.json
+```
+
+Produces warnings for the students that have not created the repository yet:
+
+``` 
+gh: Could not resolve to a Repository with the name 'ULL-MFP-AET-2223/aprender-markdown-alumnoudv4-crguezl-parallel'.
+gh: Could not resolve to a Repository with the name 'ULL-MFP-AET-2223/aprender-markdown-casiano-rodriguez-leon-alumnoudv4'.
+gh: Could not resolve to a Repository with the name 'ULL-MFP-AET-2223/aprender-markdown-luis-manuel-perez-alu0100503791'.
+```
+
+and gives a JSON like this one:
+
+```json
+[
+  {
+    "history": [
+      {
+        "author": {
+          "email": "116426203+afeblesc@users.noreply.github.com",
+          "name": "afeblesc",
+          "user": {
+            "login": "afeblesc"
           }
-        ]
-
-
+        },
+        "authoredDate": "2022-10-30T11:02:27Z",
+        "committedDate": "2022-10-30T11:02:27Z",
+        "history": {
+          "totalCount": 13
+        },
+        "id": "C_kwDOITJiddoAKGZiNzhmNWY0Mzg1ZGZlYTZlN2Y1MTI0ZmVhMzgxZDNkNzgyNTMyYTY",
+        "message": "Update README.md",
+        "messageHeadline": "Update README.md",
+        "oid": "fb78f5f4385dfea6e7f5124fea381d3d782532a6",
+        "pushedDate": "2022-10-30T11:02:28Z"
+      },
+      ...
+    ],
+    "total": 7,
+    "name": "aprender-markdown-alejandro-febles-casquero-alu0101013282"
+  },
+  ...
+]
+```  
